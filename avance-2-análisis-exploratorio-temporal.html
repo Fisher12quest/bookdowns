@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Avance 2 Análisis exploratorio temporal | Pronóstico con series de tiempo: S&amp;P 500</title>
+  <meta name="description" content="2 Avance 2 Análisis exploratorio temporal | Pronóstico con series de tiempo: S&amp;P 500" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Avance 2 Análisis exploratorio temporal | Pronóstico con series de tiempo: S&amp;P 500" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Avance 2 Análisis exploratorio temporal | Pronóstico con series de tiempo: S&amp;P 500" />
+  
+  
+  
+
+<meta name="author" content="Grupo 1: Lilian Ramirez - Omar Rodriguez - Hans Silva" />
+
+
+<meta name="date" content="2025-10-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="avance-3-estacionariedad-diferenciación-y-transformaciones.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Propuesta de trabajo</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#descripci%C3%B3n-general"><i class="fa fa-check"></i><b>1.1</b> 1. Descripción general</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#justificaci%C3%B3n-e-importancia-del-an%C3%A1lisis"><i class="fa fa-check"></i><b>1.2</b> 2. Justificación e importancia del análisis</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#fuentes-y-permisos-de-uso"><i class="fa fa-check"></i><b>1.3</b> 3. Fuentes y permisos de uso</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html"><i class="fa fa-check"></i><b>2</b> Avance 2 Análisis exploratorio temporal</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#carga-de-paquetes-y-de-datos"><i class="fa fa-check"></i><b>2.1</b> 1. Carga de paquetes y de datos</a></li>
+<li class="chapter" data-level="2.2" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#clase-e-iniciofin-de-la-serie"><i class="fa fa-check"></i><b>2.2</b> 2. Clase e inicio/fin de la serie</a></li>
+<li class="chapter" data-level="2.3" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#visualizaci%C3%B3n-general"><i class="fa fa-check"></i><b>2.3</b> 3. Visualización general</a></li>
+<li class="chapter" data-level="2.4" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#tendencia-mediante-promedios-m%C3%B3viles"><i class="fa fa-check"></i><b>2.4</b> 4. Tendencia mediante promedios móviles</a></li>
+<li class="chapter" data-level="2.5" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#an%C3%A1lisis-de-estacionalidad-promedio-mensual-por-a%C3%B1o"><i class="fa fa-check"></i><b>2.5</b> 5. Análisis de estacionalidad: promedio mensual por año</a></li>
+<li class="chapter" data-level="2.6" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#descomposici%C3%B3n-stl-y-gr%C3%A1fico-estacional"><i class="fa fa-check"></i><b>2.6</b> 6. Descomposición STL y gráfico estacional</a></li>
+<li class="chapter" data-level="2.7" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#rezagos-y-autocorrelaci%C3%B3n"><i class="fa fa-check"></i><b>2.7</b> 7. Rezagos y autocorrelación</a></li>
+<li class="chapter" data-level="2.8" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#conclusiones-del-avance-2"><i class="fa fa-check"></i><b>2.8</b> 8. Conclusiones del Avance 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><i class="fa fa-check"></i><b>3</b> Avance 3 — Estacionariedad, diferenciación y transformaciones</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#preparaci%C3%B3n-y-consistencia-diaria-mensual"><i class="fa fa-check"></i><b>3.1</b> 10. Preparación y consistencia (diaria → mensual)</a></li>
+<li class="chapter" data-level="3.2" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#transformaciones-para-controlar-la-variabilidad-logboxcox"><i class="fa fa-check"></i><b>3.2</b> 11. Transformaciones para controlar la variabilidad (log/Box–Cox)</a></li>
+<li class="chapter" data-level="3.3" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#en-contraste-el-gr%C3%A1fico-de-la-transformaci%C3%B3n-boxcox-%CE%BB-0.674-muestra-la-misma-tendencia-pero-con-una-escala-m%C3%A1s-comprimida-22-a-34-lo-que-indica-una-reducci%C3%B3n-en-la-variabilidad-relativa.-esta-transformaci%C3%B3n-contribuye-a-estabilizar-la-varianza-aunque-no-elimina-la-tendencia-por-lo-que-ser%C3%A1-necesario-aplicar-diferenciaci%C3%B3n-para-lograr-estacionariedad."><i class="fa fa-check"></i><b>3.3</b> En contraste, el gráfico de la transformación Box–Cox (λ ≈ 0.674) muestra la misma tendencia, pero con una escala más comprimida (22 a 34), lo que indica una reducción en la variabilidad relativa. Esta transformación contribuye a estabilizar la varianza, aunque no elimina la tendencia, por lo que será necesario aplicar diferenciación para lograr estacionariedad.</a></li>
+<li class="chapter" data-level="3.4" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#pruebas-de-estacionariedad-adf-kpss-pp-y-selecci%C3%B3n-de-dd"><i class="fa fa-check"></i><b>3.4</b> 12. Pruebas de estacionariedad (ADF, KPSS, PP) y selección de d/D</a></li>
+<li class="chapter" data-level="3.5" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#en-conjunto-estas-pruebas-evidencian-que-la-serie-requiere-una-transformaci%C3%B3n-adicional-para-cumplir-con-los-supuestos-de-estacionariedad.-la-funci%C3%B3n-ndiffs-sugiere-aplicar-una-diferencia-regular-d-1-mientras-que-nsdiffs-indica-que-no-es-necesaria-una-diferencia-estacional-d-0."><i class="fa fa-check"></i><b>3.5</b> En conjunto, estas pruebas evidencian que la serie requiere una transformación adicional para cumplir con los supuestos de estacionariedad. La función ndiffs() sugiere aplicar una diferencia regular (d = 1), mientras que nsdiffs() indica que no es necesaria una diferencia estacional (D = 0).*</a></li>
+<li class="chapter" data-level="3.6" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#diferenciaci%C3%B3n-y-revalidaci%C3%B3n"><i class="fa fa-check"></i><b>3.6</b> 13. Diferenciación y revalidación</a></li>
+<li class="chapter" data-level="3.7" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#esto-es-coherente-con-lo-observado-en-avance-2-precios-suelen-requerir-d-1-retornos-tienden-a-ser-estacionarios-sin-diferenciar."><i class="fa fa-check"></i><b>3.7</b> Esto es coherente con lo observado en Avance 2: <strong>precios</strong> suelen requerir <strong>d = 1</strong>; <strong>retornos</strong> tienden a ser estacionarios sin diferenciar.</a></li>
+<li class="chapter" data-level="3.8" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#descomposici%C3%B3n-complementaria-y-residuales-stl-robusta"><i class="fa fa-check"></i><b>3.8</b> 14. Descomposición complementaria y residuales (STL robusta)</a></li>
+<li class="chapter" data-level="3.9" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#esta-descomposici%C3%B3n-permite-concluir-que-la-serie-requiere-diferenciaci%C3%B3n-para-eliminar-la-tendencia-y-que-la-estacionalidad-aunque-presente-no-justifica-una-diferencia-estacional-adicional.-adem%C3%A1s-la-transformaci%C3%B3n-boxcox-aplicada-previamente-contribuye-a-estabilizar-la-variabilidad-mejorando-la-calidad-del-residuo."><i class="fa fa-check"></i><b>3.9</b> Esta descomposición permite concluir que la serie requiere diferenciación para eliminar la tendencia, y que la estacionalidad, aunque presente, no justifica una diferencia estacional adicional. Además, la transformación Box–Cox aplicada previamente contribuye a estabilizar la variabilidad, mejorando la calidad del residuo.</a></li>
+<li class="chapter" data-level="3.10" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#choques-at%C3%ADpicos-aotc-como-gu%C3%ADa-de-intervenci%C3%B3n"><i class="fa fa-check"></i><b>3.10</b> 15. Choques atípicos: AO/TC como guía de intervención</a></li>
+<li class="chapter" data-level="3.11" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#conclusion-del-avance-3"><i class="fa fa-check"></i><b>3.11</b> 16. Conclusion del Avance 3</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pronóstico con series de tiempo: S&amp;P 500</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="avance-2-análisis-exploratorio-temporal" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Avance 2 Análisis exploratorio temporal<a href="avance-2-análisis-exploratorio-temporal.html#avance-2-an%C3%A1lisis-exploratorio-temporal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En esta sección continuamos con el análisis inicial de la serie de tiempo, enfocándonos en: (i) tendencia (promedios móviles), (ii) rezagos (lag plots, ACF/PACF), y (iii) estacionalidad (tabla Año×Mes y descomposición STL).
+Usaremos el precio ajustado de cierre del índice S&amp;P 500 (^GSPC).</p>
+<hr />
+<div id="carga-de-paquetes-y-de-datos" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> 1. Carga de paquetes y de datos<a href="avance-2-análisis-exploratorio-temporal.html#carga-de-paquetes-y-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb1-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(TTR)</span>
+<span id="cb1-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb1-7"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-7" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-8"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-8" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-9"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-9" tabindex="-1"></a><span class="fu">library</span>(forecast)   <span class="co"># BoxCox.lambda, BoxCox, ndiffs, nsdiffs, autoplot.stl</span></span>
+<span id="cb1-10"><a href="avance-2-análisis-exploratorio-temporal.html#cb1-10" tabindex="-1"></a><span class="fu">library</span>(tseries)    <span class="co"># adf.test, kpss.test</span></span></code></pre></div>
+<pre><code>## 
+##     &#39;tseries&#39; version: 0.10-58
+## 
+##     &#39;tseries&#39; is a package for time series analysis and computational finance.
+## 
+##     See &#39;library(help=&quot;tseries&quot;)&#39; for details.</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(urca) </span>
+<span id="cb3-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(patchwork)<span class="co"># ur.pp</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb4-1" tabindex="-1"></a><span class="co"># Ruta del archivo local</span></span>
+<span id="cb4-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb4-2" tabindex="-1"></a>ruta_archivo <span class="ot">&lt;-</span> <span class="st">&quot;C:/Users/omarj/OneDrive/Documents/Javeriana/Series de tiempo/all_stocks_5yr.csv&quot;</span></span>
+<span id="cb4-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb4-4" tabindex="-1"></a><span class="co"># Lectura del archivo</span></span>
+<span id="cb4-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb4-5" tabindex="-1"></a>spx <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(ruta_archivo)</span></code></pre></div>
+<pre><code>## Rows: 619040 Columns: 7
+## ── Column specification ───────────────────────────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (1): Name
+## dbl  (5): open, high, low, close, volume
+## date (1): date
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb6-1" tabindex="-1"></a><span class="co"># Exploración básica</span></span>
+<span id="cb6-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb6-2" tabindex="-1"></a><span class="fu">glimpse</span>(spx)</span></code></pre></div>
+<pre><code>## Rows: 619,040
+## Columns: 7
+## $ date   &lt;date&gt; 2013-02-08, 2013-02-11, 2013-02-12, 2013-02-13, 2013-02-14, 2013-02-15, 2013-02-19, 2…
+## $ open   &lt;dbl&gt; 15.07, 14.89, 14.45, 14.30, 14.94, 13.93, 14.33, 14.17, 13.62, 13.57, 13.60, 13.14, 13…
+## $ high   &lt;dbl&gt; 15.12, 15.01, 14.51, 14.94, 14.96, 14.61, 14.56, 14.26, 13.95, 13.60, 13.76, 13.42, 13…
+## $ low    &lt;dbl&gt; 14.63, 14.26, 14.10, 14.25, 13.16, 13.93, 14.08, 13.15, 12.90, 13.21, 13.00, 12.70, 13…
+## $ close  &lt;dbl&gt; 14.75, 14.46, 14.27, 14.66, 13.99, 14.50, 14.26, 13.33, 13.37, 13.57, 13.02, 13.26, 13…
+## $ volume &lt;dbl&gt; 8407500, 8882000, 8126000, 10259500, 31879900, 15628000, 11354400, 14725200, 11922100,…
+## $ Name   &lt;chr&gt; &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;AAL&quot;, &quot;A…</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-1" tabindex="-1"></a><span class="co"># Limpieza y preparación</span></span>
+<span id="cb8-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-2" tabindex="-1"></a>spx <span class="ot">&lt;-</span> spx <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-3" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb8-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-4" tabindex="-1"></a>    <span class="at">Date =</span> date,</span>
+<span id="cb8-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-5" tabindex="-1"></a>    <span class="at">Close =</span> close</span>
+<span id="cb8-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-6" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-7" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-8"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-8" tabindex="-1"></a>    <span class="at">Date =</span> <span class="fu">as.Date</span>(Date),</span>
+<span id="cb8-9"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-9" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">year</span>(Date),</span>
+<span id="cb8-10"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-10" tabindex="-1"></a>    <span class="at">Month =</span> <span class="fu">month</span>(Date, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-11"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-11" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-12" tabindex="-1"></a>  <span class="fu">arrange</span>(Date)</span>
+<span id="cb8-13"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-13" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-14" tabindex="-1"></a><span class="co"># Confirmar rango temporal</span></span>
+<span id="cb8-15"><a href="avance-2-análisis-exploratorio-temporal.html#cb8-15" tabindex="-1"></a><span class="fu">range</span>(spx<span class="sc">$</span>Date)</span></code></pre></div>
+<pre><code>## [1] &quot;2013-02-08&quot; &quot;2018-02-07&quot;</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb10-1" tabindex="-1"></a><span class="co"># Mostrar primeras filas</span></span>
+<span id="cb10-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb10-2" tabindex="-1"></a><span class="fu">head</span>(spx)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 9
+##   Date        open  high   low Close    volume Name   Year Month
+##   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;ord&gt;
+## 1 2013-02-08  15.1  15.1  14.6  14.8   8407500 AAL    2013 feb  
+## 2 2013-02-08  67.7  68.4  66.9  67.9 158168416 AAPL   2013 feb  
+## 3 2013-02-08  78.3  79.7  78.0  78.9   1298137 AAP    2013 feb  
+## 4 2013-02-08  36.4  36.4  35.8  36.2  13858795 ABBV   2013 feb  
+## 5 2013-02-08  46.5  46.9  46.5  46.9   1232802 ABC    2013 feb  
+## 6 2013-02-08  34.4  34.7  34.3  34.4  10237828 ABT    2013 feb</code></pre>
+<hr />
+</div>
+<div id="clase-e-iniciofin-de-la-serie" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> 2. Clase e inicio/fin de la serie<a href="avance-2-análisis-exploratorio-temporal.html#clase-e-iniciofin-de-la-serie" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb12-1" tabindex="-1"></a><span class="fu">class</span>(spx)</span></code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb14-1" tabindex="-1"></a><span class="fu">range</span>(spx<span class="sc">$</span>Date)</span></code></pre></div>
+<pre><code>## [1] &quot;2013-02-08&quot; &quot;2018-02-07&quot;</code></pre>
+<p>El conjunto de datos spx corresponde a un data frame tipo tibble con observaciones diarias del índice S&amp;P 500.</p>
+<p>La variable Date se encuentra correctamente reconocida como fecha, con un rango temporal continuo desde febrero de 2013 hasta febrero de 2018, lo que proporciona una base sólida para analizar tendencias, rezagos y estacionalidad dentro de un horizonte de cinco años.</p>
+<hr />
+</div>
+<div id="visualización-general" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> 3. Visualización general<a href="avance-2-análisis-exploratorio-temporal.html#visualizaci%C3%B3n-general" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A continuación, se presenta la evolución diaria del índice <strong>S&amp;P 500</strong> entre los años <strong>2013 y 2018</strong>, tomando como referencia el precio ajustado de cierre.</p>
+<p>Este gráfico permite identificar patrones generales, tendencias de largo plazo y periodos de alta volatilidad.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-1" tabindex="-1"></a><span class="co"># Gráfico de la serie temporal</span></span>
+<span id="cb16-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-3" tabindex="-1"></a><span class="fu">ggplot</span>(spx, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Close)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-4" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">fill =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;S&amp;P 500 – Precio ajustado de cierre&quot;</span>,</span>
+<span id="cb16-7"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-7" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Datos diarios entre 2013 y 2018&quot;</span>,</span>
+<span id="cb16-8"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-8" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Fecha&quot;</span>,</span>
+<span id="cb16-9"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-9" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Índice (nivel)&quot;</span></span>
+<span id="cb16-10"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-11" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-12" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb16-13"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-13" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb16-14"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-14" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb16-15"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-15" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;gray30&quot;</span>)</span>
+<span id="cb16-16"><a href="avance-2-análisis-exploratorio-temporal.html#cb16-16" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+El gráfico evidencia un crecimiento sostenido del índice S&amp;P 500 durante el periodo analizado, con algunas correcciones temporales en 2015 y 2016.</p>
+<p>Entre los hallazgos más relevantes:</p>
+<ul>
+<li><p>La tendencia general es ascendente, lo que refleja una etapa prolongada de expansión económica posterior a la crisis financiera de 2008.</p></li>
+<li><p>Se observan fluctuaciones interanuales relacionadas con eventos macroeconómicos y cambios en la política monetaria de la Reserva Federal.</p></li>
+<li><p>La volatilidad es más pronunciada en ciertos tramos, lo que sugiere la necesidad de estudiar los rezagos y la estacionalidad del comportamiento.</p></li>
+</ul>
+<p>Este análisis visual constituye la base para los siguientes apartados del proyecto, donde se estudiarán la tendencia mediante promedios móviles, los rezagos y la estacionalidad de la serie.</p>
+<hr />
+</div>
+<div id="tendencia-mediante-promedios-móviles" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> 4. Tendencia mediante promedios móviles<a href="avance-2-análisis-exploratorio-temporal.html#tendencia-mediante-promedios-m%C3%B3viles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para analizar la tendencia del índice S&amp;P 500, se calculan promedios móviles simples (SMA) con diferentes ventanas temporales:</p>
+<ul>
+<li><strong>20 días</strong> (tendencia de corto plazo),<br />
+</li>
+<li><strong>50 días</strong> (tendencia de mediano plazo),<br />
+</li>
+<li><strong>200 días</strong> (tendencia de largo plazo).</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-1" tabindex="-1"></a><span class="co"># Calcular promedios móviles</span></span>
+<span id="cb17-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-2" tabindex="-1"></a>spx_ma <span class="ot">&lt;-</span> spx <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-4" tabindex="-1"></a>    <span class="at">SMA20 =</span> <span class="fu">SMA</span>(Close, <span class="at">n =</span> <span class="dv">20</span>),</span>
+<span id="cb17-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-5" tabindex="-1"></a>    <span class="at">SMA50 =</span> <span class="fu">SMA</span>(Close, <span class="at">n =</span> <span class="dv">50</span>),</span>
+<span id="cb17-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-6" tabindex="-1"></a>    <span class="at">SMA200 =</span> <span class="fu">SMA</span>(Close, <span class="at">n =</span> <span class="dv">200</span>)</span>
+<span id="cb17-7"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-7" tabindex="-1"></a>  )</span>
+<span id="cb17-8"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-8" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-9" tabindex="-1"></a><span class="co"># Visualizar las medias móviles junto a la serie original</span></span>
+<span id="cb17-10"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-10" tabindex="-1"></a><span class="fu">ggplot</span>(spx_ma, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Close)) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;gray70&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-12" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> SMA20), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-13" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> SMA50), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> SMA200), <span class="at">color =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb17-15"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-16"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-16" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;S&amp;P 500 – Promedios móviles (20, 50 y 200 días)&quot;</span>,</span>
+<span id="cb17-17"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-17" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Análisis de tendencia del índice de cierre&quot;</span>,</span>
+<span id="cb17-18"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-18" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Fecha&quot;</span>,</span>
+<span id="cb17-19"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-19" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Cierre ajustado&quot;</span></span>
+<span id="cb17-20"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-20" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-21"><a href="avance-2-análisis-exploratorio-temporal.html#cb17-21" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+Los promedios móviles muestran diferentes horizontes de análisis:</p>
+<p><strong>SMA20 (azul):</strong> refleja los movimientos de corto plazo, siendo más sensible a los cambios del mercado.</p>
+<p><strong>SMA50 (rojo):</strong> captura tendencias intermedias y reduce la volatilidad del promedio más corto.</p>
+<p><strong>SMA200 (verde oscuro):</strong> representa la tendencia de largo plazo, proporcionando una visión más estable del comportamiento general del índice.</p>
+<p>Durante el periodo 2013–2018, se observa:</p>
+<p>-Una tendencia general ascendente, confirmada por los tres promedios móviles.</p>
+<p>-Momentos en los que el precio cruza por debajo del SMA50 o SMA200, señalando posibles fases de corrección o ajuste del mercado.</p>
+<p>-En general, el S&amp;P 500 mantiene un crecimiento sostenido, alineado con el ciclo económico expansivo del periodo posterior a la crisis financiera de 2008.</p>
+<p>El análisis de tendencia mediante promedios móviles es esencial para la detección de <strong>cambios estructurales</strong> en la serie y la identificación de <strong>momentos críticos</strong> que anticipan ajustes en el comportamiento del mercado.</p>
+<hr />
+</div>
+<div id="análisis-de-estacionalidad-promedio-mensual-por-año" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> 5. Análisis de estacionalidad: promedio mensual por año<a href="avance-2-análisis-exploratorio-temporal.html#an%C3%A1lisis-de-estacionalidad-promedio-mensual-por-a%C3%B1o" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para analizar la estacionalidad del índice S&amp;P 500, se calcula el <strong>promedio mensual del precio de cierre</strong> agrupado por año.Esto permite identificar patrones estacionales y comparar la evolución del mercado a lo largo del tiempo.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-1" tabindex="-1"></a><span class="co"># Asegurar que la variable de fecha esté en formato Date</span></span>
+<span id="cb18-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-2" tabindex="-1"></a>spx <span class="ot">&lt;-</span> spx <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.Date</span>(Date))</span>
+<span id="cb18-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-4" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-5" tabindex="-1"></a><span class="co"># Calcular el promedio mensual agrupado por año</span></span>
+<span id="cb18-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-6" tabindex="-1"></a>spx_m <span class="ot">&lt;-</span> spx <span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-7" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-8"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-8" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">year</span>(Date),</span>
+<span id="cb18-9"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-9" tabindex="-1"></a>    <span class="at">month =</span> <span class="fu">month</span>(Date, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-10"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-11"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-11" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month) <span class="sc">%&gt;%</span></span>
+<span id="cb18-12"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-12" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_close =</span> <span class="fu">mean</span>(Close, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb18-13"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-13" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-14" tabindex="-1"></a><span class="co"># Crear tabla con años como columnas y meses como filas</span></span>
+<span id="cb18-15"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-15" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> spx_m <span class="sc">%&gt;%</span></span>
+<span id="cb18-16"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-16" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> mean_close)</span>
+<span id="cb18-17"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-17" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-18" tabindex="-1"></a><span class="co"># Mostrar tabla</span></span>
+<span id="cb18-19"><a href="avance-2-análisis-exploratorio-temporal.html#cb18-19" tabindex="-1"></a>tabla</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 7
+##    month `2013` `2014` `2015` `2016` `2017` `2018`
+##    &lt;ord&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 feb     58.1   72.9   84.1   77.0   93.9   109.
+##  2 mar     59.5   74.9   85.0   82.4   95.3    NA 
+##  3 abr     60.3   74.6   85.6   84.5   95.4    NA 
+##  4 may     63.3   75.3   85.7   84.3   97.4    NA 
+##  5 jun     62.0   77.8   85.3   85.1   99.2    NA 
+##  6 jul     64.1   78.6   85.2   87.7   99.7    NA 
+##  7 ago     64.5   78.3   84.4   89.1   98.9    NA 
+##  8 sept    65.7   79.0   80.9   88.1  100.     NA 
+##  9 oct     67.6   76.7   83.1   87.2  103.     NA 
+## 10 nov     69.9   81.2   84.8   87.9  104.     NA 
+## 11 dic     70.7   82.0   83.6   90.5  106.     NA 
+## 12 ene     NA     71.8   81.7   77.9   91.6   112.</code></pre>
+<p>La tabla muestra el precio promedio mensual del S&amp;P 500 para cada año del período 2013–2018.
+Este formato permite observar:</p>
+<p>Patrones estacionales recurrentes, como aumentos típicos a comienzos de año o caídas durante el verano (efecto estacional conocido como Sell in May).</p>
+<p>Crecimiento progresivo del índice a lo largo de los años, reflejando el comportamiento general de expansión del mercado estadounidense en ese quinquenio.</p>
+<p>Meses atípicos donde se observan variaciones abruptas pueden asociarse a choques económicos o eventos globales (por ejemplo, decisiones de política monetaria).</p>
+<hr />
+</div>
+<div id="descomposición-stl-y-gráfico-estacional" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> 6. Descomposición STL y gráfico estacional<a href="avance-2-análisis-exploratorio-temporal.html#descomposici%C3%B3n-stl-y-gr%C3%A1fico-estacional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En esta sección se realiza la <strong>descomposición de la serie temporal</strong> del S&amp;P 500 utilizando el método <strong>STL (Seasonal and Trend decomposition using Loess)</strong>, el cual separa la serie en tres componentes principales:</p>
+<ul>
+<li><strong>Tendencia (Trend)</strong><br />
+</li>
+<li><strong>Estacionalidad (Seasonal)</strong><br />
+</li>
+<li><strong>Ruido o residuales (Remainder)</strong></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-1" tabindex="-1"></a><span class="co"># Asegurar formato correcto de las variables</span></span>
+<span id="cb20-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-2" tabindex="-1"></a>spx <span class="ot">&lt;-</span> spx <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-4" tabindex="-1"></a>    <span class="at">Date =</span> <span class="fu">as.Date</span>(Date),</span>
+<span id="cb20-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-5" tabindex="-1"></a>    <span class="at">Close =</span> <span class="fu">as.numeric</span>(Close)</span>
+<span id="cb20-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-6" tabindex="-1"></a>  )</span>
+<span id="cb20-7"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-7" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-8" tabindex="-1"></a><span class="co"># Promedio mensual del precio de cierre</span></span>
+<span id="cb20-9"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-9" tabindex="-1"></a>spx_mensual <span class="ot">&lt;-</span> spx <span class="sc">%&gt;%</span></span>
+<span id="cb20-10"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ym =</span> <span class="fu">floor_date</span>(Date, <span class="st">&quot;month&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-11"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-11" tabindex="-1"></a>  <span class="fu">group_by</span>(ym) <span class="sc">%&gt;%</span></span>
+<span id="cb20-12"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-12" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_close =</span> <span class="fu">mean</span>(Close, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb20-13"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-13" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-14" tabindex="-1"></a><span class="co"># Convertir a serie temporal mensual</span></span>
+<span id="cb20-15"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-15" tabindex="-1"></a>spx_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(spx_mensual<span class="sc">$</span>mean_close,</span>
+<span id="cb20-16"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-16" tabindex="-1"></a>             <span class="at">frequency =</span> <span class="dv">12</span>,</span>
+<span id="cb20-17"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-17" tabindex="-1"></a>             <span class="at">start =</span> <span class="fu">c</span>(<span class="fu">year</span>(<span class="fu">min</span>(spx_mensual<span class="sc">$</span>ym)), <span class="fu">month</span>(<span class="fu">min</span>(spx_mensual<span class="sc">$</span>ym))))</span>
+<span id="cb20-18"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-18" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-19" tabindex="-1"></a><span class="co"># Descomposición STL</span></span>
+<span id="cb20-20"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-20" tabindex="-1"></a>decomp <span class="ot">&lt;-</span> <span class="fu">stl</span>(spx_ts, <span class="at">s.window =</span> <span class="st">&quot;periodic&quot;</span>)</span>
+<span id="cb20-21"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-21" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-22" tabindex="-1"></a><span class="co"># Visualización de la descomposición</span></span>
+<span id="cb20-23"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-23" tabindex="-1"></a><span class="fu">autoplot</span>(decomp) <span class="sc">+</span></span>
+<span id="cb20-24"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-24" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Descomposición STL – S&amp;P 500 mensual&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-25"><a href="avance-2-análisis-exploratorio-temporal.html#cb20-25" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+El gráfico presenta los tres componentes de la serie temporal:</p>
+<p><strong>Data (serie original):</strong> Muestra el comportamiento general del S&amp;P 500, evidenciando un crecimiento sostenido desde 2013 hasta 2018.</p>
+<p><strong>Trend (tendencia):</strong> Se observa una tendencia creciente a lo largo del tiempo, con una leve desaceleración hacia mediados de 2015 y un repunte posterior en 2017.
+Esto coincide con un ciclo de recuperación económica y con políticas monetarias expansivas de la Reserva Federal de EE.UU.</p>
+<p><strong>Seasonal (estacionalidad):</strong> Se aprecian fluctuaciones regulares cada 12 meses, con ligeras caídas estacionales a mitad de año y repuntes hacia los finales del año.
+Estos patrones pueden estar asociados a comportamientos estacionales del mercado financiero, como los aumentos de inversión en el cuarto trimestre.</p>
+<p><strong>Remainder (residuo):</strong> Representa las variaciones no explicadas por la tendencia ni la estacionalidad.
+Los picos negativos de 2016 coinciden con eventos de alta volatilidad global (por ejemplo, el Brexit y caídas temporales del petróleo).</p>
+<p><strong>Conclusiones del análisis estacional</strong></p>
+<ul>
+<li><p>La serie muestra <strong>una tendencia positiva sostenida</strong> en el periodo analizado.</p></li>
+<li><p>Existen <strong>patrones estacionales consistentes</strong>, lo que sugiere la presencia de componentes cíclicos anuales en el mercado bursátil.</p></li>
+<li><p>El componente residual indica que, aunque la tendencia y estacionalidad explican buena parte de la variabilidad, persisten <strong>eventos exógenos o choques temporales</strong> que afectan el comportamiento del índice.</p></li>
+</ul>
+<p>El siguiente gráfico representa la evolución promedio mensual del <strong>precio ajustado de cierre del S&amp;P 500</strong> a lo largo de los años 2013–2018.Este tipo de visualización permite detectar <strong>patrones recurrentes en los meses del año</strong>, característicos de la <strong>estacionalidad</strong> del mercado financiero.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb21-1" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">ggseasonplot</span>(spx_ts, <span class="at">year.labels =</span> <span class="cn">TRUE</span>, <span class="at">year.labels.left =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb21-2" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">&quot;Gráfico estacional — S&amp;P 500&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb21-3" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">&quot;Promedio mensual&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Mes&quot;</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+El gráfico revela un patrón estacional moderado en el comportamiento del <strong>S&amp;P 500:</strong></p>
+<ul>
+<li><p>En todos los años, el índice muestra una <strong>tendencia creciente entre enero y diciembre,</strong> aunque con pequeñas fluctuaciones intermedias.</p></li>
+<li><p>Se observan <strong>ligeras caídas en los meses de junio a septiembre,</strong> seguidas de recuperaciones sostenidas hacia el cierre del año.</p></li>
+<li><p>Este comportamiento sugiere un efecto estacional positivo en los últimos trimestres, posiblemente asociado a:Aumentos en la inversión corporativa y en fondos institucionales hacia el cierre fiscal.Optimismo de mercado durante la temporada de reportes financieros de fin de año.Fenómenos cíclicos conocidos como el “rally navideño”.</p></li>
+</ul>
+<p>A lo largo del periodo, se observa también que cada año parte de un nivel superior al anterior, reforzando la tendencia general de crecimiento estructural ya identificada en los análisis previos.</p>
+<p>Este gráfico complementa la descomposición STL mostrando visualmente cómo la estacionalidad se repite cada año y cómo evoluciona la magnitud del índice con el tiempo.</p>
+<hr />
+</div>
+<div id="rezagos-y-autocorrelación" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> 7. Rezagos y autocorrelación<a href="avance-2-análisis-exploratorio-temporal.html#rezagos-y-autocorrelaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En esta sección se analiza la <strong>relación entre valores consecutivos</strong> de la serie temporal del S&amp;P 500 mediante gráficos de rezago (<em>lag plots</em>) y funciones de autocorrelación.<br />
+Esto permite identificar la presencia de dependencia temporal y patrones persistentes en los precios.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-1" tabindex="-1"></a><span class="co"># Crear los 12 rezagos</span></span>
+<span id="cb22-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-2" tabindex="-1"></a>lags <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span></span>
+<span id="cb22-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-3" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-4" tabindex="-1"></a><span class="co"># Generar una lista de gráficos</span></span>
+<span id="cb22-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-5" tabindex="-1"></a>lag_plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(lags, <span class="cf">function</span>(k) {</span>
+<span id="cb22-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-6" tabindex="-1"></a>  spx <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-7" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lag_k =</span> dplyr<span class="sc">::</span><span class="fu">lag</span>(Close, k)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-8" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lag_k, <span class="at">y =</span> Close)) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-9" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-10" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-11" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">&quot;Lag plot (k =&quot;</span>, k, <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb22-12"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-12" tabindex="-1"></a>         <span class="at">x =</span> <span class="fu">paste</span>(<span class="st">&quot;Cierre (t -&quot;</span>, k, <span class="st">&quot;)&quot;</span>),</span>
+<span id="cb22-13"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-13" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">&quot;Cierre (t)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-14" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span>
+<span id="cb22-15"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-15" tabindex="-1"></a>})</span>
+<span id="cb22-16"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-16" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-17" tabindex="-1"></a><span class="co"># Mostrar los 12 gráficos en una cuadrícula</span></span>
+<span id="cb22-18"><a href="avance-2-análisis-exploratorio-temporal.html#cb22-18" tabindex="-1"></a><span class="fu">wrap_plots</span>(lag_plots, <span class="at">ncol =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-1" tabindex="-1"></a><span class="co"># --- Autocorrelaciones ---</span></span>
+<span id="cb23-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-2" tabindex="-1"></a><span class="co"># Convertir a serie temporal mensual (ya creada en secciones anteriores)</span></span>
+<span id="cb23-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-3" tabindex="-1"></a>spx_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(spx_mensual<span class="sc">$</span>mean_close, <span class="at">frequency =</span> <span class="dv">12</span>,</span>
+<span id="cb23-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-4" tabindex="-1"></a>             <span class="at">start =</span> <span class="fu">c</span>(<span class="fu">year</span>(<span class="fu">min</span>(spx_mensual<span class="sc">$</span>ym)), <span class="fu">month</span>(<span class="fu">min</span>(spx_mensual<span class="sc">$</span>ym))))</span>
+<span id="cb23-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-5" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-6" tabindex="-1"></a><span class="co"># Gráfico ACF y PACF</span></span>
+<span id="cb23-7"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-7" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb23-8"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-8" tabindex="-1"></a><span class="fu">acf</span>(spx_ts, <span class="at">main =</span> <span class="st">&quot;Función de Autocorrelación (ACF)&quot;</span>)</span>
+<span id="cb23-9"><a href="avance-2-análisis-exploratorio-temporal.html#cb23-9" tabindex="-1"></a><span class="fu">pacf</span>(spx_ts, <span class="at">main =</span> <span class="st">&quot;Función de Autocorrelación Parcial (PACF)&quot;</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb24-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>Interpretación de los lag plots</p>
+<ul>
+<li><p>Los <strong>primeros rezagos (k=1 a 3)</strong> muestran una clara <strong>relación lineal positiva</strong>, indicando que los precios de cierre tienden a depender de los valores de días previos.</p></li>
+<li><p>Conforme el rezago aumenta (k&gt;6), la relación entre los valores actuales y pasados se <strong>disipa</strong>, mostrando una dispersión aleatoria.</p></li>
+<li><p>Esto evidencia que la serie tiene <strong>memoria temporal corta,</strong> pero con persistencia significativa en los rezagos más cercanos.</p></li>
+</ul>
+<p>La estructura sugiere que el comportamiento del S&amp;P 500 podría modelarse con <strong>componentes autorregresivos de bajo orden.</strong></p>
+<p>Interpretación ACF y PACF</p>
+<ul>
+<li><p>La ACF muestra una <strong>disminución lenta y sostenida</strong> a medida que aumentan los rezagos.
+Este patrón es típico de <strong>series no estacionarias,</strong> donde los valores mantienen una fuerte correlación con su pasado.</p></li>
+<li><p>La <strong>PACF</strong> presenta un <strong>pico alto en el primer rezago</strong> y luego cae abruptamente, lo que indica una estructura <strong>autorregresiva de orden 1 (AR(1)).</strong></p></li>
+</ul>
+<p>En conjunto, los resultados sugieren que: La serie original del S&amp;P 500 no es estacionaria (posiblemente requiere diferenciación).
+Existe <strong>dependencia temporal inmediata,</strong> pero decreciente con el tiempo.</p>
+<p>Conclusiones del análisis de dependencia temporal</p>
+<ul>
+<li><p>El S&amp;P 500 presenta una <strong>fuerte correlación con sus valores previos inmediatos,</strong> lo que justifica el uso de modelos que consideren los rezagos (ARIMA, ETS o modelos híbridos).</p></li>
+<li><p>La <strong>ACF decreciente y PACF truncada</strong> son indicativas de un componente autorregresivo dominante.</p></li>
+</ul>
+<p>Antes de modelar, será necesario aplicar <strong>transformaciones o diferenciaciones</strong> para garantizar la estacionariedad y mejorar la capacidad predictiva del modelo.</p>
+<p>Para analizar la dependencia temporal en una serie financiera, es común transformar los precios a <strong>retornos logarítmicos</strong>, lo que permite eliminar tendencia y estabilizar la varianza.<br />
+La fórmula utilizada es:</p>
+<p><span class="math display">\[
+r_t = \ln\left(\frac{P_t}{P_{t-1}}\right)
+\]</span></p>
+<p>Donde <span class="math inline">\(P_t\)</span> es el precio ajustado de cierre en el tiempo <span class="math inline">\(t\)</span>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb25-1" tabindex="-1"></a>returns <span class="ot">&lt;-</span> <span class="fu">diff</span>(<span class="fu">log</span>(spx<span class="sc">$</span>Close))</span>
+<span id="cb25-2"><a href="avance-2-análisis-exploratorio-temporal.html#cb25-2" tabindex="-1"></a>returns <span class="ot">&lt;-</span> returns[<span class="sc">!</span><span class="fu">is.na</span>(returns)]</span>
+<span id="cb25-3"><a href="avance-2-análisis-exploratorio-temporal.html#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="avance-2-análisis-exploratorio-temporal.html#cb25-4" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb25-5"><a href="avance-2-análisis-exploratorio-temporal.html#cb25-5" tabindex="-1"></a><span class="fu">acf</span>(returns, <span class="at">main =</span> <span class="st">&quot;ACF — retornos logarítmicos&quot;</span>)</span>
+<span id="cb25-6"><a href="avance-2-análisis-exploratorio-temporal.html#cb25-6" tabindex="-1"></a><span class="fu">pacf</span>(returns, <span class="at">main =</span> <span class="st">&quot;PACF — retornos logarítmicos&quot;</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="avance-2-análisis-exploratorio-temporal.html#cb26-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>Interpretación</p>
+<ul>
+<li>A diferencia de los precios originales, los <strong>retornos logarítmicos no presentan autocorrelación significativa</strong> en la ACF ni en la PACF. Los coeficientes se ubican dentro del intervalo de confianza (líneas azules), lo que indica ausencia de correlación temporal fuerte.</li>
+</ul>
+<p>-Este comportamiento es típico de una <strong>serie estacionaria,</strong> lo cual confirma que los retornos del S&amp;P 500 se comportan como un <strong>proceso aleatorio,</strong> consistente con la hipótesis de <strong>eficiencia del mercado (EMH).</strong></p>
+<ul>
+<li>En la <strong>ACF</strong>, la rápida caída a valores cercanos a cero sugiere que <strong>no existe dependencia lineal entre los retornos sucesivos.</strong></li>
+</ul>
+<p>En la <strong>PACF</strong>, las pequeñas fluctuaciones negativas también refuerzan la idea de que <strong>la serie carece de estructura autorregresiva significativa.</strong></p>
+<p>Conclusiones del análisis de retornos logarítmicos</p>
+<ul>
+<li><p>Los <strong>precios originales del S&amp;P 500</strong> mostraban fuerte autocorrelación y no eran estacionarios.</p></li>
+<li><p>Al transformarlos en <strong>retornos logarítmicos,</strong> la serie se estabiliza y <strong>pierde correlación temporal,</strong> volviéndose adecuada para modelos que asumen estacionariedad (p. ej., modelos ARMA o GARCH).</p></li>
+<li><p>Esto confirma que las fluctuaciones diarias del S&amp;P 500 <strong>no pueden predecirse fácilmente</strong> con base en valores pasados, reflejando la naturaleza <strong>estocástica del mercado financiero.</strong></p></li>
+</ul>
+<hr />
+</div>
+<div id="conclusiones-del-avance-2" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> 8. Conclusiones del Avance 2<a href="avance-2-análisis-exploratorio-temporal.html#conclusiones-del-avance-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Tendencia: las medias móviles muestran una trayectoria ascendente con caídas transitorias.</p>
+<p>Estacionalidad: leve, con picos recurrentes hacia fin de año.</p>
+<p>Rezagos: autocorrelación positiva en los primeros rezagos, coherente con una serie no estacionaria.</p>
+<p>Interpretación general: el S&amp;P 500 es una serie con fuerte tendencia y volatilidad; requiere diferenciación o modelado específico (ARIMA, GARCH) para pronóstico.</p>
+<hr />
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

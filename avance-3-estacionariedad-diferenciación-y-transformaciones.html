@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Avance 3 — Estacionariedad, diferenciación y transformaciones | Pronóstico con series de tiempo: S&amp;P 500</title>
+  <meta name="description" content="3 Avance 3 — Estacionariedad, diferenciación y transformaciones | Pronóstico con series de tiempo: S&amp;P 500" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Avance 3 — Estacionariedad, diferenciación y transformaciones | Pronóstico con series de tiempo: S&amp;P 500" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Avance 3 — Estacionariedad, diferenciación y transformaciones | Pronóstico con series de tiempo: S&amp;P 500" />
+  
+  
+  
+
+<meta name="author" content="Grupo 1: Lilian Ramirez - Omar Rodriguez - Hans Silva" />
+
+
+<meta name="date" content="2025-10-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="avance-2-análisis-exploratorio-temporal.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Propuesta de trabajo</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#descripci%C3%B3n-general"><i class="fa fa-check"></i><b>1.1</b> 1. Descripción general</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#justificaci%C3%B3n-e-importancia-del-an%C3%A1lisis"><i class="fa fa-check"></i><b>1.2</b> 2. Justificación e importancia del análisis</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#fuentes-y-permisos-de-uso"><i class="fa fa-check"></i><b>1.3</b> 3. Fuentes y permisos de uso</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html"><i class="fa fa-check"></i><b>2</b> Avance 2 Análisis exploratorio temporal</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#carga-de-paquetes-y-de-datos"><i class="fa fa-check"></i><b>2.1</b> 1. Carga de paquetes y de datos</a></li>
+<li class="chapter" data-level="2.2" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#clase-e-iniciofin-de-la-serie"><i class="fa fa-check"></i><b>2.2</b> 2. Clase e inicio/fin de la serie</a></li>
+<li class="chapter" data-level="2.3" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#visualizaci%C3%B3n-general"><i class="fa fa-check"></i><b>2.3</b> 3. Visualización general</a></li>
+<li class="chapter" data-level="2.4" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#tendencia-mediante-promedios-m%C3%B3viles"><i class="fa fa-check"></i><b>2.4</b> 4. Tendencia mediante promedios móviles</a></li>
+<li class="chapter" data-level="2.5" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#an%C3%A1lisis-de-estacionalidad-promedio-mensual-por-a%C3%B1o"><i class="fa fa-check"></i><b>2.5</b> 5. Análisis de estacionalidad: promedio mensual por año</a></li>
+<li class="chapter" data-level="2.6" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#descomposici%C3%B3n-stl-y-gr%C3%A1fico-estacional"><i class="fa fa-check"></i><b>2.6</b> 6. Descomposición STL y gráfico estacional</a></li>
+<li class="chapter" data-level="2.7" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#rezagos-y-autocorrelaci%C3%B3n"><i class="fa fa-check"></i><b>2.7</b> 7. Rezagos y autocorrelación</a></li>
+<li class="chapter" data-level="2.8" data-path="avance-2-análisis-exploratorio-temporal.html"><a href="avance-2-análisis-exploratorio-temporal.html#conclusiones-del-avance-2"><i class="fa fa-check"></i><b>2.8</b> 8. Conclusiones del Avance 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><i class="fa fa-check"></i><b>3</b> Avance 3 — Estacionariedad, diferenciación y transformaciones</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#preparaci%C3%B3n-y-consistencia-diaria-mensual"><i class="fa fa-check"></i><b>3.1</b> 10. Preparación y consistencia (diaria → mensual)</a></li>
+<li class="chapter" data-level="3.2" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#transformaciones-para-controlar-la-variabilidad-logboxcox"><i class="fa fa-check"></i><b>3.2</b> 11. Transformaciones para controlar la variabilidad (log/Box–Cox)</a></li>
+<li class="chapter" data-level="3.3" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#en-contraste-el-gr%C3%A1fico-de-la-transformaci%C3%B3n-boxcox-%CE%BB-0.674-muestra-la-misma-tendencia-pero-con-una-escala-m%C3%A1s-comprimida-22-a-34-lo-que-indica-una-reducci%C3%B3n-en-la-variabilidad-relativa.-esta-transformaci%C3%B3n-contribuye-a-estabilizar-la-varianza-aunque-no-elimina-la-tendencia-por-lo-que-ser%C3%A1-necesario-aplicar-diferenciaci%C3%B3n-para-lograr-estacionariedad."><i class="fa fa-check"></i><b>3.3</b> En contraste, el gráfico de la transformación Box–Cox (λ ≈ 0.674) muestra la misma tendencia, pero con una escala más comprimida (22 a 34), lo que indica una reducción en la variabilidad relativa. Esta transformación contribuye a estabilizar la varianza, aunque no elimina la tendencia, por lo que será necesario aplicar diferenciación para lograr estacionariedad.</a></li>
+<li class="chapter" data-level="3.4" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#pruebas-de-estacionariedad-adf-kpss-pp-y-selecci%C3%B3n-de-dd"><i class="fa fa-check"></i><b>3.4</b> 12. Pruebas de estacionariedad (ADF, KPSS, PP) y selección de d/D</a></li>
+<li class="chapter" data-level="3.5" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#en-conjunto-estas-pruebas-evidencian-que-la-serie-requiere-una-transformaci%C3%B3n-adicional-para-cumplir-con-los-supuestos-de-estacionariedad.-la-funci%C3%B3n-ndiffs-sugiere-aplicar-una-diferencia-regular-d-1-mientras-que-nsdiffs-indica-que-no-es-necesaria-una-diferencia-estacional-d-0."><i class="fa fa-check"></i><b>3.5</b> En conjunto, estas pruebas evidencian que la serie requiere una transformación adicional para cumplir con los supuestos de estacionariedad. La función ndiffs() sugiere aplicar una diferencia regular (d = 1), mientras que nsdiffs() indica que no es necesaria una diferencia estacional (D = 0).*</a></li>
+<li class="chapter" data-level="3.6" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#diferenciaci%C3%B3n-y-revalidaci%C3%B3n"><i class="fa fa-check"></i><b>3.6</b> 13. Diferenciación y revalidación</a></li>
+<li class="chapter" data-level="3.7" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#esto-es-coherente-con-lo-observado-en-avance-2-precios-suelen-requerir-d-1-retornos-tienden-a-ser-estacionarios-sin-diferenciar."><i class="fa fa-check"></i><b>3.7</b> Esto es coherente con lo observado en Avance 2: <strong>precios</strong> suelen requerir <strong>d = 1</strong>; <strong>retornos</strong> tienden a ser estacionarios sin diferenciar.</a></li>
+<li class="chapter" data-level="3.8" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#descomposici%C3%B3n-complementaria-y-residuales-stl-robusta"><i class="fa fa-check"></i><b>3.8</b> 14. Descomposición complementaria y residuales (STL robusta)</a></li>
+<li class="chapter" data-level="3.9" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#esta-descomposici%C3%B3n-permite-concluir-que-la-serie-requiere-diferenciaci%C3%B3n-para-eliminar-la-tendencia-y-que-la-estacionalidad-aunque-presente-no-justifica-una-diferencia-estacional-adicional.-adem%C3%A1s-la-transformaci%C3%B3n-boxcox-aplicada-previamente-contribuye-a-estabilizar-la-variabilidad-mejorando-la-calidad-del-residuo."><i class="fa fa-check"></i><b>3.9</b> Esta descomposición permite concluir que la serie requiere diferenciación para eliminar la tendencia, y que la estacionalidad, aunque presente, no justifica una diferencia estacional adicional. Además, la transformación Box–Cox aplicada previamente contribuye a estabilizar la variabilidad, mejorando la calidad del residuo.</a></li>
+<li class="chapter" data-level="3.10" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#choques-at%C3%ADpicos-aotc-como-gu%C3%ADa-de-intervenci%C3%B3n"><i class="fa fa-check"></i><b>3.10</b> 15. Choques atípicos: AO/TC como guía de intervención</a></li>
+<li class="chapter" data-level="3.11" data-path="avance-3-estacionariedad-diferenciación-y-transformaciones.html"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#conclusion-del-avance-3"><i class="fa fa-check"></i><b>3.11</b> 16. Conclusion del Avance 3</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pronóstico con series de tiempo: S&amp;P 500</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="avance-3-estacionariedad-diferenciación-y-transformaciones" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Avance 3 — Estacionariedad, diferenciación y transformaciones<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#avance-3-estacionariedad-diferenciaci%C3%B3n-y-transformaciones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En este avance continuamos desde el <strong>objeto <code>spx</code></strong> (con <code>Date</code> y <code>Close</code>) generado en el Avance 2, y desarrollamos: <strong>(i)</strong> descomposición de la serie, <strong>(ii)</strong> verificación de <strong>estacionariedad</strong>, <strong>(iii)</strong> aplicación de <strong>diferenciación</strong> si aplica, y <strong>(iv)</strong> <strong>transformaciones</strong> para estabilizar varianza/tendencia, justificando cada decisión con evidencia empírica.</p>
+<p>Partimos de precios y, cuando corresponda, contrastamos con <strong>retornos logarítmicos</strong> para verificar estacionariedad en fluctuaciones de corto plazo.</p>
+<hr />
+<div id="preparación-y-consistencia-diaria-mensual" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> 10. Preparación y consistencia (diaria → mensual)<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#preparaci%C3%B3n-y-consistencia-diaria-mensual" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-1" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(<span class="fu">c</span>(<span class="st">&quot;Date&quot;</span>,<span class="st">&quot;Close&quot;</span>) <span class="sc">%in%</span> <span class="fu">names</span>(spx)))</span>
+<span id="cb27-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-2" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-3" tabindex="-1"></a>spx <span class="ot">&lt;-</span> spx <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.Date</span>(Date),</span>
+<span id="cb27-5"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-5" tabindex="-1"></a>         <span class="at">Close =</span> <span class="fu">as.numeric</span>(Close)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-6" tabindex="-1"></a>  <span class="fu">arrange</span>(Date)</span>
+<span id="cb27-7"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-7" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-8" tabindex="-1"></a><span class="co"># Agregación mensual (promedio mensual del cierre)</span></span>
+<span id="cb27-9"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-9" tabindex="-1"></a>spx_mensual <span class="ot">&lt;-</span> spx <span class="sc">%&gt;%</span></span>
+<span id="cb27-10"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ym =</span> <span class="fu">floor_date</span>(Date, <span class="st">&quot;month&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-11"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-11" tabindex="-1"></a>  <span class="fu">group_by</span>(ym) <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-12" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_close =</span> <span class="fu">mean</span>(Close, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb27-13"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-13" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-14" tabindex="-1"></a>start_year  <span class="ot">&lt;-</span> <span class="fu">year</span>(<span class="fu">min</span>(spx_mensual<span class="sc">$</span>ym))</span>
+<span id="cb27-15"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-15" tabindex="-1"></a>start_month <span class="ot">&lt;-</span> <span class="fu">month</span>(<span class="fu">min</span>(spx_mensual<span class="sc">$</span>ym))</span>
+<span id="cb27-16"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-16" tabindex="-1"></a>spx_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(spx_mensual<span class="sc">$</span>mean_close, <span class="at">frequency =</span> <span class="dv">12</span>,</span>
+<span id="cb27-17"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-17" tabindex="-1"></a>             <span class="at">start =</span> <span class="fu">c</span>(start_year, start_month))</span>
+<span id="cb27-18"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-18" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-19" tabindex="-1"></a><span class="co"># Vistas rápidas</span></span>
+<span id="cb27-20"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb27-20" tabindex="-1"></a><span class="fu">head</span>(spx_mensual, <span class="dv">2</span>); <span class="fu">tail</span>(spx_mensual, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   ym         mean_close
+##   &lt;date&gt;          &lt;dbl&gt;
+## 1 2013-02-01       58.1
+## 2 2013-03-01       59.5</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##   ym         mean_close
+##   &lt;date&gt;          &lt;dbl&gt;
+## 1 2018-01-01       112.
+## 2 2018-02-01       109.</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb30-1" tabindex="-1"></a><span class="fu">start</span>(spx_ts); <span class="fu">end</span>(spx_ts); <span class="fu">frequency</span>(spx_ts)</span></code></pre></div>
+<pre><code>## [1] 2013    2</code></pre>
+<pre><code>## [1] 2018    2</code></pre>
+<pre><code>## [1] 12</code></pre>
+<p>La agregación mensual reduce ruido de alta frecuencia y facilita inferencia estacional con período 12.</p>
+<hr />
+</div>
+<div id="transformaciones-para-controlar-la-variabilidad-logboxcox" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 11. Transformaciones para controlar la variabilidad (log/Box–Cox)<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#transformaciones-para-controlar-la-variabilidad-logboxcox" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb34-1" tabindex="-1"></a><span class="co"># Lambda de Box–Cox (si λ≈0 sugiere log; si λ≈1, no es necesaria transformación)</span></span>
+<span id="cb34-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb34-2" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">BoxCox.lambda</span>(spx_ts, <span class="at">lower =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">upper =</span> <span class="dv">2</span>)</span>
+<span id="cb34-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb34-3" tabindex="-1"></a>lambda</span></code></pre></div>
+<pre><code>## [1] 0.6737058</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb36-1" tabindex="-1"></a>spx_ts_bc <span class="ot">&lt;-</span> <span class="fu">BoxCox</span>(spx_ts, <span class="at">lambda =</span> lambda)</span>
+<span id="cb36-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb36-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb36-4"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb36-4" tabindex="-1"></a><span class="fu">plot</span>(spx_ts, <span class="at">main =</span> <span class="st">&quot;Serie mensual en nivel&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Close&quot;</span>)</span>
+<span id="cb36-5"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb36-5" tabindex="-1"></a><span class="fu">plot</span>(spx_ts_bc, <span class="at">main =</span> <span class="fu">paste0</span>(<span class="st">&quot;Box–Cox (λ≈&quot;</span>, <span class="fu">round</span>(lambda,<span class="dv">3</span>), <span class="st">&quot;)&quot;</span>), <span class="at">ylab =</span> <span class="st">&quot;Transformada&quot;</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb37-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><strong>Justificación:</strong><br />
+- Si <strong>λ ≈ 0</strong>, usar <strong>log</strong> estabiliza la varianza (movimientos proporcionales).<br />
+- Si <strong>λ ≈ 1</strong>, la <strong>transformación no es imprescindible</strong>.<br />
+- En finanzas, <strong>log-precios</strong> y <strong>retornos log</strong> son estándar para controlar heterocedasticidad.</p>
+<p>Para coherencia con el Avance 2 (donde retornos fueron estacionarios), aquí analizamos estacionariedad en precios (nivel) y, si procede, en la transformada.</p>
+<p>El gráfico evidencia que la serie mensual en nivel presenta una tendencia ascendente marcada, con valores que aumentan desde aproximadamente 60 en 2013 hasta más de 110 en 2017. Esto refleja un crecimiento sostenido del índice.</p>
+</div>
+<div id="en-contraste-el-gráfico-de-la-transformación-boxcox-λ-0.674-muestra-la-misma-tendencia-pero-con-una-escala-más-comprimida-22-a-34-lo-que-indica-una-reducción-en-la-variabilidad-relativa.-esta-transformación-contribuye-a-estabilizar-la-varianza-aunque-no-elimina-la-tendencia-por-lo-que-será-necesario-aplicar-diferenciación-para-lograr-estacionariedad." class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> En contraste, el gráfico de la transformación Box–Cox (λ ≈ 0.674) muestra la misma tendencia, pero con una escala más comprimida (22 a 34), lo que indica una reducción en la variabilidad relativa. Esta transformación contribuye a estabilizar la varianza, aunque no elimina la tendencia, por lo que será necesario aplicar diferenciación para lograr estacionariedad.<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#en-contraste-el-gr%C3%A1fico-de-la-transformaci%C3%B3n-boxcox-%CE%BB-0.674-muestra-la-misma-tendencia-pero-con-una-escala-m%C3%A1s-comprimida-22-a-34-lo-que-indica-una-reducci%C3%B3n-en-la-variabilidad-relativa.-esta-transformaci%C3%B3n-contribuye-a-estabilizar-la-varianza-aunque-no-elimina-la-tendencia-por-lo-que-ser%C3%A1-necesario-aplicar-diferenciaci%C3%B3n-para-lograr-estacionariedad." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="pruebas-de-estacionariedad-adf-kpss-pp-y-selección-de-dd" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> 12. Pruebas de estacionariedad (ADF, KPSS, PP) y selección de d/D<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#pruebas-de-estacionariedad-adf-kpss-pp-y-selecci%C3%B3n-de-dd" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb38-1" tabindex="-1"></a>x_lvl <span class="ot">&lt;-</span> spx_ts         <span class="co"># Serie en nivel</span></span>
+<span id="cb38-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb38-2" tabindex="-1"></a><span class="co"># Alternativa: analizar la transformada si lambda aporta</span></span>
+<span id="cb38-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb38-3" tabindex="-1"></a><span class="co"># x_lvl &lt;- spx_ts_bc</span></span>
+<span id="cb38-4"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb38-4" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb38-5" tabindex="-1"></a><span class="co"># ADF (raíz unitaria; H0: no estacionaria)</span></span>
+<span id="cb38-6"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb38-6" tabindex="-1"></a>adf_res <span class="ot">&lt;-</span> tseries<span class="sc">::</span><span class="fu">adf.test</span>(x_lvl, <span class="at">k =</span> <span class="fu">trunc</span>(<span class="fu">log</span>(<span class="fu">length</span>(x_lvl))))</span>
+<span id="cb38-7"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb38-7" tabindex="-1"></a>adf_res</span></code></pre></div>
+<pre><code>## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  x_lvl
+## Dickey-Fuller = -1.6543, Lag order = 4, p-value = 0.7147
+## alternative hypothesis: stationary</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb40-1" tabindex="-1"></a><span class="co"># KPSS (H0: estacionaria en nivel/tendencia)</span></span>
+<span id="cb40-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb40-2" tabindex="-1"></a>kpss_lvl   <span class="ot">&lt;-</span> tseries<span class="sc">::</span><span class="fu">kpss.test</span>(x_lvl, <span class="at">null =</span> <span class="st">&quot;Level&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in tseries::kpss.test(x_lvl, null = &quot;Level&quot;): p-value smaller than printed p-value</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb42-1" tabindex="-1"></a>kpss_trend <span class="ot">&lt;-</span> tseries<span class="sc">::</span><span class="fu">kpss.test</span>(x_lvl, <span class="at">null =</span> <span class="st">&quot;Trend&quot;</span>)</span>
+<span id="cb42-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb42-2" tabindex="-1"></a>kpss_lvl; kpss_trend</span></code></pre></div>
+<pre><code>## 
+##  KPSS Test for Level Stationarity
+## 
+## data:  x_lvl
+## KPSS Level = 1.4713, Truncation lag parameter = 3, p-value = 0.01</code></pre>
+<pre><code>## 
+##  KPSS Test for Trend Stationarity
+## 
+## data:  x_lvl
+## KPSS Trend = 0.18587, Truncation lag parameter = 3, p-value = 0.0213</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb45-1" tabindex="-1"></a><span class="co"># Phillips–Perron (robusto a correlación/heterocedasticidad)</span></span>
+<span id="cb45-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb45-2" tabindex="-1"></a>pp_res <span class="ot">&lt;-</span> urca<span class="sc">::</span><span class="fu">ur.pp</span>(x_lvl, <span class="at">type =</span> <span class="st">&quot;Z-tau&quot;</span>, <span class="at">model =</span> <span class="st">&quot;trend&quot;</span>, <span class="at">lags =</span> <span class="st">&quot;short&quot;</span>)</span>
+<span id="cb45-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb45-3" tabindex="-1"></a><span class="fu">summary</span>(pp_res)</span></code></pre></div>
+<pre><code>## 
+## ################################## 
+## # Phillips-Perron Unit Root Test # 
+## ################################## 
+## 
+## Test regression with intercept and trend 
+## 
+## 
+## Call:
+## lm(formula = y ~ y.l1 + trend)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.7696 -0.6856  0.2493  0.9620  4.9306 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 10.34357    5.27011   1.963   0.0546 .  
+## y.l1         0.88463    0.06398  13.826   &lt;2e-16 ***
+## trend        0.07935    0.04506   1.761   0.0836 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.868 on 57 degrees of freedom
+## Multiple R-squared:  0.9779, Adjusted R-squared:  0.9771 
+## F-statistic:  1260 on 2 and 57 DF,  p-value: &lt; 2.2e-16
+## 
+## 
+## Value of test-statistic, type: Z-tau  is: -1.7381 
+## 
+##            aux. Z statistics
+## Z-tau-mu              2.1600
+## Z-tau-beta            1.6757
+## 
+## Critical values for Z statistics: 
+##                      1pct      5pct     10pct
+## critical values -4.116194 -3.484869 -3.170306</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb47-1" tabindex="-1"></a><span class="co"># Sugerencia automática de diferencias</span></span>
+<span id="cb47-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb47-2" tabindex="-1"></a>d <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">ndiffs</span>(x_lvl)      <span class="co"># diferencia no estacional</span></span>
+<span id="cb47-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb47-3" tabindex="-1"></a>D <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">nsdiffs</span>(x_lvl)     <span class="co"># diferencia estacional (12)</span></span>
+<span id="cb47-4"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb47-4" tabindex="-1"></a><span class="fu">c</span>(<span class="at">d =</span> d, <span class="at">D =</span> D)</span></code></pre></div>
+<pre><code>## d D 
+## 1 0</code></pre>
+<p><strong>Criterio de decisión:</strong></p>
+<ul>
+<li>Si <strong>ADF</strong> no rechaza (p &gt; 0.05) y <strong>KPSS</strong> rechaza → <strong>no estacionaria</strong> en nivel.</li>
+<li>Usar <strong>d = ndiffs(x)</strong>; típicamente <strong>d = 1</strong> en precios.</li>
+<li><strong>D = nsdiffs(x)</strong>: si <strong>0</strong>, no diferenciar estacionalmente; si <strong>1</strong>, aplicar <strong>D = 1</strong>.</li>
+</ul>
+<p>*Los resultados de las pruebas estadísticas confirman que la serie en nivel no es estacionaria. los valores indican lo siguiente:</p>
+<ul>
+<li>El test ADF arroja un p-value de 0.7147, muy superior al umbral de 0.05, lo que significa que no se rechaza la hipótesis nula de raíz unitaria.</li>
+<li>El test KPSS, tanto para nivel como para tendencia, presenta p-values menores a 0.05, lo que indica que se rechaza la hipótesis de estacionariedad.</li>
+<li>El test Phillips-Perron refuerza esta conclusión, con un estadístico Z-tau (-1.7381) que no alcanza los valores críticos para rechazar la no estacionariedad.</li>
+</ul>
+</div>
+<div id="en-conjunto-estas-pruebas-evidencian-que-la-serie-requiere-una-transformación-adicional-para-cumplir-con-los-supuestos-de-estacionariedad.-la-función-ndiffs-sugiere-aplicar-una-diferencia-regular-d-1-mientras-que-nsdiffs-indica-que-no-es-necesaria-una-diferencia-estacional-d-0." class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> En conjunto, estas pruebas evidencian que la serie requiere una transformación adicional para cumplir con los supuestos de estacionariedad. La función ndiffs() sugiere aplicar una diferencia regular (d = 1), mientras que nsdiffs() indica que no es necesaria una diferencia estacional (D = 0).*<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#en-conjunto-estas-pruebas-evidencian-que-la-serie-requiere-una-transformaci%C3%B3n-adicional-para-cumplir-con-los-supuestos-de-estacionariedad.-la-funci%C3%B3n-ndiffs-sugiere-aplicar-una-diferencia-regular-d-1-mientras-que-nsdiffs-indica-que-no-es-necesaria-una-diferencia-estacional-d-0." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="diferenciación-y-revalidación" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> 13. Diferenciación y revalidación<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#diferenciaci%C3%B3n-y-revalidaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb49-1" tabindex="-1"></a>x_use <span class="ot">&lt;-</span> x_lvl</span>
+<span id="cb49-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb49-2" tabindex="-1"></a><span class="cf">if</span> (d <span class="sc">&gt;</span> <span class="dv">0</span>)  x_use <span class="ot">&lt;-</span> <span class="fu">diff</span>(x_use, <span class="at">differences =</span> d)</span>
+<span id="cb49-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb49-3" tabindex="-1"></a><span class="cf">if</span> (D <span class="sc">&gt;</span> <span class="dv">0</span>)  x_use <span class="ot">&lt;-</span> <span class="fu">diff</span>(x_use, <span class="at">lag =</span> <span class="fu">frequency</span>(x_lvl), <span class="at">differences =</span> D)</span>
+<span id="cb49-4"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb49-4" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb49-5" tabindex="-1"></a><span class="co"># Revalidar estacionariedad tras diferenciar</span></span>
+<span id="cb49-6"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb49-6" tabindex="-1"></a>adf_diff  <span class="ot">&lt;-</span> tseries<span class="sc">::</span><span class="fu">adf.test</span>(x_use, <span class="at">k =</span> <span class="fu">trunc</span>(<span class="fu">log</span>(<span class="fu">length</span>(x_use))))</span>
+<span id="cb49-7"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb49-7" tabindex="-1"></a>kpss_diff <span class="ot">&lt;-</span> tseries<span class="sc">::</span><span class="fu">kpss.test</span>(x_use, <span class="at">null =</span> <span class="st">&quot;Level&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in tseries::kpss.test(x_use, null = &quot;Level&quot;): p-value greater than printed p-value</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb51-1" tabindex="-1"></a><span class="fu">list</span>(<span class="at">ADF_differenced =</span> adf_diff,</span>
+<span id="cb51-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb51-2" tabindex="-1"></a>     <span class="at">KPSS_differenced =</span> kpss_diff)</span></code></pre></div>
+<pre><code>## $ADF_differenced
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  x_use
+## Dickey-Fuller = -2.7232, Lag order = 4, p-value = 0.2824
+## alternative hypothesis: stationary
+## 
+## 
+## $KPSS_differenced
+## 
+##  KPSS Test for Level Stationarity
+## 
+## data:  x_use
+## KPSS Level = 0.1553, Truncation lag parameter = 3, p-value = 0.1</code></pre>
+<p><strong>Apoyo visual (estructura residual):</strong></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb53-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb53-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb53-2" tabindex="-1"></a><span class="fu">acf</span>(x_use, <span class="at">main =</span> <span class="st">&quot;ACF — serie diferenciada&quot;</span>)</span>
+<span id="cb53-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb53-3" tabindex="-1"></a><span class="fu">pacf</span>(x_use, <span class="at">main =</span> <span class="st">&quot;PACF — serie diferenciada&quot;</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb54-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><strong>Justificación:</strong> si tras diferenciar <strong>ADF rechaza</strong> y <strong>KPSS no rechaza</strong>, la serie quedó <strong>estacionaria</strong>.</p>
+<p>El gráfico evidencia que, tras aplicar una diferencia regular (d = 1), la estructura de dependencia temporal se reduce notablemente. La ACF muestra que las autocorrelaciones caen rápidamente y la PACF presenta pocos rezagos significativos, lo que indica que la tendencia fue eliminada.</p>
+<p>Los resultados estadísticos refuerzan esta conclusión: el test KPSS arroja un p-value de 0.1, lo que sugiere que no se rechaza la hipótesis de estacionariedad en nivel, mientras que el test ADF, aunque no rechaza completamente la hipótesis nula, muestra una mejora respecto a la serie original. En conjunto, esto confirma que la diferenciación aplicada acerca la serie a un comportamiento estacionario, condición necesaria para el modelado ARIMA.</p>
+</div>
+<div id="esto-es-coherente-con-lo-observado-en-avance-2-precios-suelen-requerir-d-1-retornos-tienden-a-ser-estacionarios-sin-diferenciar." class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Esto es coherente con lo observado en Avance 2: <strong>precios</strong> suelen requerir <strong>d = 1</strong>; <strong>retornos</strong> tienden a ser estacionarios sin diferenciar.<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#esto-es-coherente-con-lo-observado-en-avance-2-precios-suelen-requerir-d-1-retornos-tienden-a-ser-estacionarios-sin-diferenciar." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="descomposición-complementaria-y-residuales-stl-robusta" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> 14. Descomposición complementaria y residuales (STL robusta)<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#descomposici%C3%B3n-complementaria-y-residuales-stl-robusta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En Avance 2 ya descompusimos con STL. Aquí <strong>complementamos</strong> usando la serie <strong>transformada</strong> cuando λ ≠ 1, para verificar que el <strong>remainder</strong> (residuo) se acerque más a ruido blanco.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb55-1" tabindex="-1"></a><span class="co"># Elegir serie para STL: transformada si aporta, de lo contrario nivel</span></span>
+<span id="cb55-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb55-2" tabindex="-1"></a>x_for_stl <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">abs</span>(lambda <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">&gt;</span> <span class="fl">0.15</span>) spx_ts_bc <span class="cf">else</span> spx_ts</span>
+<span id="cb55-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb55-3" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb55-4" tabindex="-1"></a>decomp2 <span class="ot">&lt;-</span> <span class="fu">stl</span>(x_for_stl, <span class="at">s.window =</span> <span class="st">&quot;periodic&quot;</span>, <span class="at">robust =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb55-5"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb55-5" tabindex="-1"></a><span class="fu">autoplot</span>(decomp2) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb55-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;STL robusta — comparación (transformada si λ≈0)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb55-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="Bookdown3_files/figure-html/unnamed-chunk-16-1.png" width="768" /></p>
+<p>Si la <strong>estacionalidad</strong> se mantiene estable y el <strong>remainder</strong> luce más “ruido blanco” en la transformada, <strong>justifica</strong> mantener la transformación en el modelado posterior.</p>
+<p>El gráfico evidencia cómo la descomposición STL separa la serie en sus componentes principales. La sección “data” muestra el comportamiento general del índice, con una tendencia creciente marcada. El componente “trend” confirma esta tendencia sostenida, mientras que “seasonal” revela oscilaciones regulares de baja magnitud, características de una estacionalidad leve. Finalmente, el “remainder” indica que la mayor parte de la variabilidad se explica por la tendencia y la estacionalidad, aunque persisten algunos choques puntuales.</p>
+</div>
+<div id="esta-descomposición-permite-concluir-que-la-serie-requiere-diferenciación-para-eliminar-la-tendencia-y-que-la-estacionalidad-aunque-presente-no-justifica-una-diferencia-estacional-adicional.-además-la-transformación-boxcox-aplicada-previamente-contribuye-a-estabilizar-la-variabilidad-mejorando-la-calidad-del-residuo." class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Esta descomposición permite concluir que la serie requiere diferenciación para eliminar la tendencia, y que la estacionalidad, aunque presente, no justifica una diferencia estacional adicional. Además, la transformación Box–Cox aplicada previamente contribuye a estabilizar la variabilidad, mejorando la calidad del residuo.<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#esta-descomposici%C3%B3n-permite-concluir-que-la-serie-requiere-diferenciaci%C3%B3n-para-eliminar-la-tendencia-y-que-la-estacionalidad-aunque-presente-no-justifica-una-diferencia-estacional-adicional.-adem%C3%A1s-la-transformaci%C3%B3n-boxcox-aplicada-previamente-contribuye-a-estabilizar-la-variabilidad-mejorando-la-calidad-del-residuo." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="choques-atípicos-aotc-como-guía-de-intervención" class="section level2 hasAnchor" number="3.10">
+<h2><span class="header-section-number">3.10</span> 15. Choques atípicos: AO/TC como guía de intervención<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#choques-at%C3%ADpicos-aotc-como-gu%C3%ADa-de-intervenci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb56-1" tabindex="-1"></a><span class="co"># install.packages(&quot;tsoutliers&quot;)</span></span>
+<span id="cb56-2"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb56-2" tabindex="-1"></a><span class="fu">library</span>(tsoutliers)</span>
+<span id="cb56-3"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb56-3" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb56-4" tabindex="-1"></a><span class="co"># Revisar outliers sobre la serie estacionaria</span></span>
+<span id="cb56-5"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb56-5" tabindex="-1"></a>tso_fit <span class="ot">&lt;-</span> <span class="fu">tso</span>(<span class="fu">ts</span>(x_use, <span class="at">frequency =</span> <span class="dv">12</span>),</span>
+<span id="cb56-6"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb56-6" tabindex="-1"></a>               <span class="at">types =</span> <span class="fu">c</span>(<span class="st">&quot;AO&quot;</span>,<span class="st">&quot;TC&quot;</span>),</span>
+<span id="cb56-7"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb56-7" tabindex="-1"></a>               <span class="at">maxit.iloop =</span> <span class="dv">5</span>, <span class="at">tsmethod =</span> <span class="st">&quot;arima&quot;</span>)</span>
+<span id="cb56-8"><a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#cb56-8" tabindex="-1"></a>tso_fit<span class="sc">$</span>outliers</span></code></pre></div>
+<p><strong>Justificación:</strong> la presencia de <strong>AO</strong> (choque puntual) o <strong>TC</strong> (cambio temporal con decaimiento) orienta a incluir <strong>intervenciones (xreg)</strong> en el modelado, mejorando residuales e intervalos.</p>
+<p>El análisis de outliers permite identificar eventos atípicos que afectan la serie, como choques puntuales (AO) o cambios temporales (TC). Estos eventos no forman parte de la dinámica regular de la serie y, si no se ajustan, pueden sesgar los parámetros del modelo y generar pronósticos poco confiables.
+La función tso() del paquete tsoutliers detecta estos puntos y sugiere intervenciones (variables adicionales) para corregir el impacto. Incorporar estas intervenciones en el modelado posterior mejora la calidad de los residuales y la precisión de las predicciones.
+————————————————————————</p>
+</div>
+<div id="conclusion-del-avance-3" class="section level2 hasAnchor" number="3.11">
+<h2><span class="header-section-number">3.11</span> 16. Conclusion del Avance 3<a href="avance-3-estacionariedad-diferenciación-y-transformaciones.html#conclusion-del-avance-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En este avance confirmamos que la serie del S&amp;P 500 presenta una tendencia marcada y una estacionalidad leve. Las pruebas estadísticas (ADF, KPSS, PP) evidenciaron que la serie en nivel no es estacionaria, por lo que aplicamos una diferenciación regular (d = 1) para lograr estacionariedad. Además, evaluamos la transformación Box–Cox: el valor de λ sugiere que la transformación logarítmica es recomendable para estabilizar la variabilidad.
+La descomposición STL permitió visualizar claramente los componentes: tendencia creciente, estacionalidad moderada y residuo cercano a ruido blanco tras la transformación. Estos hallazgos justifican que, para el modelado posterior, trabajaremos con log-precios y una diferencia regular, asegurando que la serie cumpla los supuestos de estacionariedad.
+En síntesis, este análisis refuerza la importancia de aplicar transformaciones y diferenciaciones cuando la estructura temporal lo exige, garantizando modelos más robustos y pronósticos confiables.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="avance-2-análisis-exploratorio-temporal.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
